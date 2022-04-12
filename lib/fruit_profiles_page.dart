@@ -14,8 +14,8 @@ class FruitProfilesPage extends StatelessWidget {
         if (snapshot.hasData) {
           return Container(
             color: Colors.white,
-            child: GridView.extent(
-              maxCrossAxisExtent: 200,
+            child: GridView.count(
+              crossAxisCount: 2,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
               children: snapshot.data as List<Widget>,
@@ -54,7 +54,8 @@ class FruitProfilesPage extends StatelessWidget {
                 color: Colors.blueGrey,
                 border: Border.all(width: 3.0, color: Colors.black),
               ),
-              child: Image.asset(path),
+              constraints: const BoxConstraints.expand(),
+              child: Image.asset(path, fit: BoxFit.contain),
               padding: const EdgeInsets.all(8),
               margin: const EdgeInsets.all(0),
             ),
