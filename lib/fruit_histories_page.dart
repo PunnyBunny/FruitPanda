@@ -34,7 +34,7 @@ class FruitHistoriesPage extends StatelessWidget {
       final idx = record.indexOf('%%%');
       final path = record.substring(0, idx);
       final fruit = record.substring(idx + 3);
-      print(path);
+      // print(path);
       return TextButton(
         onPressed: null,
         child: Column(
