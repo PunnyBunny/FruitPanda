@@ -14,7 +14,7 @@ class PandaPage extends StatelessWidget {
         color: Colors.black38,
         child: Column(
           children: [
-            Image.asset('assets/images/panda.png'),
+            Image.asset('assets/images/panda.png', fit: BoxFit.contain),
             ElevatedButton(
                 onPressed: () async {
                   final picker = ImagePicker();
@@ -28,7 +28,7 @@ class PandaPage extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (_) => AlertDialog(
-                        title: const Text("is this apple?"),
+                        title: const Text("are you gay?"),
                         content: Image.file(File(path)),
                         actions: [
                           ElevatedButton(
@@ -39,7 +39,7 @@ class PandaPage extends StatelessWidget {
 
                               await prefs.setStringList(
                                 "records",
-                                ["$path%%%apple"] +
+                                ["$path%%%0"] +
                                     (prefs.getStringList("records") ?? []),
                               );
 
@@ -56,7 +56,8 @@ class PandaPage extends StatelessWidget {
                     // TODO: AI
                   }
                 },
-                child: const Text('Take a photo!'))
+                child: const Text('Take a photo!')
+            )
           ],
         ));
   }

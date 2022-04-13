@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruit_panda/fruit_profiles_page.dart';
 import 'package:fruit_panda/fruit_histories_page.dart';
 import 'package:fruit_panda/panda_page.dart';
+import 'package:fruit_panda/settings_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,6 +15,13 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Fruit Panda'),
           automaticallyImplyLeading: false,
+          actions: [
+            IconButton(
+                icon: const Icon(Icons.settings),
+                onPressed: () => pushSettingsPage(context),
+                tooltip: 'Saved suggestions'
+            )
+          ],
         ),
         body: TabBarView(
           children: [

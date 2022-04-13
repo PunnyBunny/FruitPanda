@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_panda/utils.dart';
 
 import 'home_page.dart';
 
+final assetsManager = AssetsManager();
 void main() {
+  assetsManager.init();
   runApp(const MyApp());
 }
 
