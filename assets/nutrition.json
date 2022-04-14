@@ -1,0 +1,178 @@
+{
+  "Apple": {
+    "Energy": 218,
+    "Carbohydrates": 13.81,
+    "Sugars": 10.39,
+    "Dietary fibre": 2.4,
+    "Fat": 0.17,
+    "Protein": 0.26,
+    "Vitamin A": 3,
+    "Vitamin C": 4.6,
+    "Vitamin E": 0.18
+  },
+  "Avocado": {
+    "Energy": 670,
+    "Carbohydrates": 8.53,
+    "Sugars": 0.66,
+    "Dietary fibre": 6.7,
+    "Fat": 14.66,
+    "Protein": 2,
+    "Vitamin A": 7,
+    "Vitamin C": 10,
+    "Vitamin E": 2.07
+  },
+  "Banana": {
+    "Energy": 371,
+    "Carbohydrates": 22.84,
+    "Sugars": 12.23,
+    "Dietary fibre": 2.6,
+    "Fat": 0.33,
+    "Protein": 1.09,
+    "Vitamin A": 0,
+    "Vitamin C": 8.7,
+    "Vitamin E": 0
+  },
+  "Blueberries": {
+    "Energy": 240,
+    "Carbohydrates": 14.49,
+    "Sugars": 9.96,
+    "Dietary fibre": 2.4,
+    "Fat": 0.33,
+    "Protein": 0.74,
+    "Vitamin A": 16.2,
+    "Vitamin C": 9.7,
+    "Vitamin E": 0.57
+  },
+  "Cherry": {
+    "Energy": 263,
+    "Carbohydrates": 16,
+    "Sugars": 12.8,
+    "Dietary fibre": 2.1,
+    "Fat": 0.2,
+    "Protein": 1.1,
+    "Vitamin A": 3,
+    "Vitamin C": 7,
+    "Vitamin E": 0
+  },
+  "Dragon fruit": {
+    "Energy": 1100,
+    "Carbohydrates": 82.14,
+    "Sugars": 82.14,
+    "Dietary fibre": 1.8,
+    "Fat": 0,
+    "Protein": 3.57,
+    "Vitamin A": 0,
+    "Vitamin C": 9.2,
+    "Vitamin E": 0
+  },
+  "Durian": {
+    "Energy": 615,
+    "Carbohydrates": 27.09,
+    "Sugars": 0,
+    "Dietary fibre": 3.8,
+    "Fat": 5.33,
+    "Protein": 1.47,
+    "Vitamin A": 13.2,
+    "Vitamin C": 19.7,
+    "Vitamin E": 0
+  },
+  "Grape": {
+    "Energy": 288,
+    "Carbohydrates": 18.1,
+    "Sugars": 15.48,
+    "Dietary fibre": 0.9,
+    "Fat": 0.16,
+    "Protein": 0.72,
+    "Vitamin A": 0,
+    "Vitamin C": 3.2,
+    "Vitamin E": 0.19
+  },
+  "Kiwi": {
+    "Energy": 255,
+    "Carbohydrates": 14.66,
+    "Sugars": 8.99,
+    "Dietary fibre": 3,
+    "Fat": 0.52,
+    "Protein": 1.14,
+    "Vitamin A": 0,
+    "Vitamin C": 92.7,
+    "Vitamin E": 1.46
+  },
+  "Longan": {
+    "Energy": 251,
+    "Carbohydrates": 15.14,
+    "Sugars": 0,
+    "Dietary fibre": 1.1,
+    "Fat": 0.1,
+    "Protein": 1.31,
+    "Vitamin A": 0,
+    "Vitamin C": 84,
+    "Vitamin E": 0
+  },
+  "Mango": {
+    "Energy": 250,
+    "Carbohydrates": 15,
+    "Sugars": 13.7,
+    "Dietary fibre": 1.6,
+    "Fat": 0.38,
+    "Protein": 0.82,
+    "Vitamin A": 54,
+    "Vitamin C": 36.4,
+    "Vitamin E": 0.9
+  },
+  "Orange": {
+    "Energy": 197,
+    "Carbohydrates": 11.75,
+    "Sugars": 9.35,
+    "Dietary fibre": 2.4,
+    "Fat": 0.12,
+    "Protein": 0.94,
+    "Vitamin A": 11,
+    "Vitamin C": 53.2,
+    "Vitamin E": 0.18
+  },
+  "Pear": {
+    "Energy": 239,
+    "Carbohydrates": 15.23,
+    "Sugars": 9.75,
+    "Dietary fibre": 3.1,
+    "Fat": 0.14,
+    "Protein": 0.36,
+    "Vitamin A": 0,
+    "Vitamin C": 4.3,
+    "Vitamin E": 0.12
+  },
+  "Pineapple": {
+    "Energy": 209,
+    "Carbohydrates": 13.12,
+    "Sugars": 9.85,
+    "Dietary fibre": 1.4,
+    "Fat": 0.12,
+    "Protein": 0.54,
+    "Vitamin A": 0,
+    "Vitamin C": 47.8,
+    "Vitamin E": 0
+  },
+  "Strawberry": {
+    "Energy": 136,
+    "Carbohydrates": 7.68,
+    "Sugars": 4.89,
+    "Dietary fibre": 2,
+    "Fat": 0.3,
+    "Protein": 0.67,
+    "Vitamin A": 0,
+    "Vitamin C": 58.8,
+    "Vitamin E": 0.29
+  },
+  "Watermelon": {
+    "Energy": 127,
+    "Carbohydrates": 7.55,
+    "Sugars": 6.2,
+    "Dietary fibre": 0.4,
+    "Fat": 0.15,
+    "Protein": 0.61,
+    "Vitamin A": 28,
+    "Vitamin C": 8.1,
+    "Vitamin E": 0
+  }
+}
