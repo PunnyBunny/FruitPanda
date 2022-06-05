@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fruit_panda/ai.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'fruits.dart';
 
@@ -18,10 +19,13 @@ class PandaPage extends StatelessWidget {
         children: [
           Image.asset('assets/images/panda.png', height: 500),
           ElevatedButton(
-            child: const Text('Take a photo!'),
+            child: const Text('Feed me!'),
             onPressed: () async {
               final picker = ImagePicker();
-              final photo = await picker.pickImage(source: ImageSource.camera);
+              final photo = await picker.pickImage(
+                source: ImageSource.camera,
+                maxHeight: 800,
+              );
 
               if (photo == null) return;
 
@@ -34,85 +38,64 @@ class PandaPage extends StatelessWidget {
 
               showDialog(
                 context: context,
-                builder: (_) => AlertDialog(
-                  title: FutureBuilder(
-                    future: fruits,
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return const Text("Detecting...");
-                      }
-                      final fruits = snapshot.data as Fruits;
-                      if (fruits == Fruits.none) {
-                        return const Text("No fruits detected");
-                      }
-                      return Text("Is this ${fruits.name}");
-                    },
-                  ),
-                  content: FutureBuilder(
-                    future: fruits,
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return Column(
+                barrierDismissible: false,
+                builder: (_) => FutureBuilder(
+                  future: fruits,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return AlertDialog(
+                        title: const Text("Detecting..."),
+                        content: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: const [
-                            CircularProgressIndicator(strokeWidth: 5),
+                            CircularProgressIndicator(),
                           ],
-                        );
-                      }
-                      // final fruits = snapshot.data as Fruits?;
-                      return Image.file(File(path));
-                    },
-                  ),
+                        ),
+                      );
+                    }
+
+                    final fruit = snapshot.data as Fruits;
+                    if (fruit == Fruits.none) {
+                      return AlertDialog(
+                        title: const Text("No fruits detected"),
+                        content: Image.file(File(path)),
+                        actions: [
+                          ElevatedButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text("Ok"),
+                          ),
+                        ],
+                      );
+                    }
+
+                    return AlertDialog(
+                      title: Text("Is this ${fruit.name}?"),
+                      content: Image.file(File(path)),
+                      actions: [
+                        ElevatedButton(
+                          child: const Text("Yes"),
+                          onPressed: () async {
+                            // add record to shared preferences
+                            final prefs = await SharedPreferences.getInstance();
+
+                            await prefs.setStringList(
+                              "records",
+                              ["$path%%%apple"] +
+                                  (prefs.getStringList("records") ?? []),
+                            );
+
+                            Navigator.pop(context);
+                          },
+                        ),
+                        ElevatedButton(
+                          child: const Text("No"),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               );
-              // FutureBuilder(future: inference(path), builder: () => {});
-              //
-              // final fruits = await inference(path);
-              //
-              // if (fruits == null) {
-              //   showDialog(
-              //     context: context,
-              //     builder: (_) => AlertDialog(
-              //       title: const Text("No fruits detected"),
-              //       content: Image.file(File(path)),
-              //       actions: [
-              //         ElevatedButton(
-              //           child: const Text("OK"),
-              //           onPressed: () => Navigator.pop(context),
-              //         ),
-              //       ],
-              //     ),
-              //   );
-              // } else {
-              //   showDialog(
-              //     context: context,
-              //     builder: (_) => AlertDialog(
-              //       title: Text("Is this ${fruits.name}?"),
-              //       content: Image.file(File(path)),
-              //       actions: [
-              //         ElevatedButton(
-              //           child: const Text("Yes"),
-              //           onPressed: () async {
-              //             // add record to shared preferences
-              //             final prefs = await SharedPreferences.getInstance();
-              //
-              //             await prefs.setStringList(
-              //               "records",
-              //               ["$path%%%apple"] +
-              //                   (prefs.getStringList("records") ?? []),
-              //             );
-              //
-              //             Navigator.pop(context);
-              //           },
-              //         ),
-              //         ElevatedButton(
-              //           child: const Text("No"),
-              //           onPressed: () => Navigator.pop(context),
-              //         ),
-              //       ],
-              //     ),
-              //   );
-              // },
             },
           ),
         ],
