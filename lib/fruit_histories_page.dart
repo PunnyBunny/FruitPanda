@@ -34,12 +34,12 @@ class FruitHistoriesPage extends StatelessWidget {
     final prefs = await SharedPreferences.getInstance();
     final records = prefs.getStringList("records") ?? [];
     return records.map((String record) {
-      final idx = record.indexOf('%%%');
+      final idx = record.indexOf(separator);
       final path = record.substring(0, idx);
-      final fruit = int.parse(record.substring(idx + 3));
-      // print(path);
+      final fruit = int.parse(record.substring(idx + separator.length));
       return TextButton(
-        onPressed: () => pushStatisticsPage(context, Fruit.values[fruit], path:path),
+        onPressed: () =>
+            pushStatisticsPage(context, Fruit.values[fruit], path: path),
         child: Column(
           children: [
             Expanded(child: Image.file(File(path), fit: BoxFit.cover)),

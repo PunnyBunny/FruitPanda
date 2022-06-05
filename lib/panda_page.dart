@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'fruits.dart';
+import 'constants.dart';
 
 class PandaPage extends StatelessWidget {
   const PandaPage({Key? key}) : super(key: key);
@@ -17,7 +17,8 @@ class PandaPage extends StatelessWidget {
       color: Colors.black38,
       child: Column(
         children: [
-          Image.asset('assets/images/panda.png', height: 500, fit: BoxFit.contain),
+          Image.asset('assets/images/panda.png',
+              height: 500, fit: BoxFit.contain),
           ElevatedButton(
             child: const Text('Feed me!'),
             onPressed: () async {
@@ -34,15 +35,16 @@ class PandaPage extends StatelessWidget {
               final path = saveDir.path + '/${DateTime.now()}.jpg';
               photo.saveTo(path);
 
-              final fruits = inference(path);
+              final fruit = inference(path);
 
               showDialog(
                 context: context,
                 barrierDismissible: false,
                 builder: (_) => FutureBuilder(
-                  future: fruits,
+                  future: fruit,
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
+                      // detecting
                       return AlertDialog(
                         title: const Text("Detecting..."),
                         content: Column(
@@ -54,8 +56,9 @@ class PandaPage extends StatelessWidget {
                       );
                     }
 
-                    final fruit = snapshot.data as Fruits;
-                    if (fruit == Fruits.none) {
+                    final fruit = snapshot.data as Fruit;
+                    if (fruit == Fruit.unknown) {
+                      // no fruits detected
                       return AlertDialog(
                         title: const Text("No fruits detected"),
                         content: Image.file(File(path)),
@@ -68,6 +71,7 @@ class PandaPage extends StatelessWidget {
                       );
                     }
 
+                    // fruit detected
                     return AlertDialog(
                       title: Text("Is this ${fruit.name}?"),
                       content: Image.file(File(path)),
@@ -77,11 +81,13 @@ class PandaPage extends StatelessWidget {
                           onPressed: () async {
                             // add record to shared preferences
                             final prefs = await SharedPreferences.getInstance();
-
+                            final idx = Fruit.values.indexOf(fruit);
                             await prefs.setStringList(
                               "records",
-                              ["$path%%%0"] +
+                              ["$path$separator$idx"] +
                                   (prefs.getStringList("records") ?? []),
+                              // prepend the current fruit record in prefs
+                              // records may be non-existent
                             );
 
                             Navigator.pop(context);

@@ -1,14 +1,15 @@
-import 'package:fruit_panda/fruits.dart';
+import 'package:fruit_panda/constants.dart';
+import 'package:fruit_panda/utils.dart';
 import 'package:tflite/tflite.dart';
+
+import 'logger.dart';
 
 Future loadModel(String modelPath, String labelsPath) async {
   Tflite.close();
   await Tflite.loadModel(model: modelPath, labels: labelsPath);
 }
 
-Future<Fruits> inference(String path) async {
-  print("infering");
-  print(path);
+Future<Fruit> inference(String path) async {
   final recognitions = await Tflite.detectObjectOnImage(
     path: path,
     model: "YOLO",
@@ -18,14 +19,13 @@ Future<Fruits> inference(String path) async {
     threshold: 0.2,
   );
 
-  print(recognitions);
-  if (recognitions == null) return Fruits.none;
+  logger.i(recognitions);
+  if (recognitions == null) return Fruit.unknown;
   for (final i in recognitions) {
-    for (Fruits j in Fruits.values) {
-      if (i['detectedClass'] == j.name) return j;
-    }
+    Fruit f = asFruit(i['detectedClass']);
+    if (f != Fruit.unknown) return f;
   }
-  return Fruits.none;
+  return Fruit.unknown;
 }
 
 Future closeModel() async {

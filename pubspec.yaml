@@ -39,6 +39,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.0.13
   tflite: ^1.1.2
+  logger: ^1.1.0
 
 dev_dependencies:
   flutter_test:
