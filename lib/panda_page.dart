@@ -17,7 +17,7 @@ class PandaPage extends StatelessWidget {
       color: Colors.black38,
       child: Column(
         children: [
-          Image.asset('assets/images/panda.png', height: 500),
+          Image.asset('assets/images/panda.png', height: 500, fit: BoxFit.contain),
           ElevatedButton(
             child: const Text('Feed me!'),
             onPressed: () async {
@@ -80,7 +80,7 @@ class PandaPage extends StatelessWidget {
 
                             await prefs.setStringList(
                               "records",
-                              ["$path%%%apple"] +
+                              ["$path%%%0"] +
                                   (prefs.getStringList("records") ?? []),
                             );
 
