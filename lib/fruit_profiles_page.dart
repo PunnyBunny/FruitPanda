@@ -30,13 +30,6 @@ class FruitProfilesPage extends StatelessWidget {
   }
 
   Future<List<Widget>> _fruits(BuildContext context) async {
-    // final manifestContent = await rootBundle.loadString('AssetManifest.json');
-    // print(manifestContent);
-    // final Map<String, dynamic> manifestMap = json.decode(manifestContent);
-    // final imagePaths = manifestMap.keys
-    //     .where((String key) => key.contains('assets/images/fruits/'))
-    //     .toList();
-    // return imagePaths
     return AssetsManager.fruitImagesPath.entries
         .map((MapEntry<Fruit, String> entry) {
       Fruit fruit = entry.key;

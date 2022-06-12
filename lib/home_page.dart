@@ -17,9 +17,10 @@ class HomePage extends StatelessWidget {
           automaticallyImplyLeading: false,
           actions: [
             IconButton(
-                icon: const Icon(Icons.settings),
-                onPressed: () => pushSettingsPage(context),
-                tooltip: 'Saved suggestions')
+              icon: const Icon(Icons.settings),
+              onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const SettingsPage())),
+            ),
           ],
         ),
         body: TabBarView(

@@ -1,7 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fruit_panda/ai.dart';
+import 'package:fruit_panda/fruit_record.dart';
+import 'package:fruit_panda/record.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,8 +20,11 @@ class PandaPage extends StatelessWidget {
       color: Colors.black38,
       child: Column(
         children: [
-          Image.asset('assets/images/panda.png',
-              height: 500, fit: BoxFit.contain),
+          Image.asset(
+            'assets/images/panda.png',
+            height: 500,
+            fit: BoxFit.contain,
+          ),
           ElevatedButton(
             child: const Text('Feed me!'),
             onPressed: () async {
@@ -81,15 +87,13 @@ class PandaPage extends StatelessWidget {
                           onPressed: () async {
                             // add record to shared preferences
                             final prefs = await SharedPreferences.getInstance();
-                            final idx = Fruit.values.indexOf(fruit);
-                            await prefs.setStringList(
-                              "records",
-                              ["$path$separator$idx"] +
-                                  (prefs.getStringList("records") ?? []),
-                              // prepend the current fruit record in prefs
-                              // records may be non-existent
-                            );
+                            final json = prefs.getString("records") ?? '{"records":[]}';
+                            final records = FruitRecord.fromJson(jsonDecode(json));
 
+                            final idx = Fruit.values.indexOf(fruit);
+                            records.records.add(Record(path, idx));
+                            prefs.setString(
+                                "records", jsonEncode(records.toJson()));
                             Navigator.pop(context);
                           },
                         ),

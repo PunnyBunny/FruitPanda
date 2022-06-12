@@ -20,6 +20,7 @@ Future<Fruit> inference(String path) async {
   );
 
   logger.i(recognitions);
+  if (debug) return Fruit.apple;
   if (recognitions == null) return Fruit.unknown;
   for (final i in recognitions) {
     Fruit f = asFruit(i['detectedClass']);

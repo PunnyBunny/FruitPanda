@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fruit_panda/constants.dart';
+import 'package:fruit_panda/record.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'fruit_record.dart';
 import 'fruit_stats_page.dart';
 
 class FruitHistoriesPage extends StatelessWidget {
@@ -32,18 +35,19 @@ class FruitHistoriesPage extends StatelessWidget {
 
   Future<List<Widget>> _records(BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
-    final records = prefs.getStringList("records") ?? [];
-    return records.map((String record) {
-      final idx = record.indexOf(separator);
-      final path = record.substring(0, idx);
-      final fruit = int.parse(record.substring(idx + separator.length));
+    final json = prefs.getString("records") ?? '{"records":[]}';
+    final records = FruitRecord.fromJson(jsonDecode(json));
+    return records.records.map((Record record) {
       return TextButton(
-        onPressed: () =>
-            pushStatisticsPage(context, Fruit.values[fruit], path: path),
+        onPressed: () => pushStatisticsPage(
+          context,
+          Fruit.values[record.fruit],
+          path: record.path,
+        ),
         child: Column(
           children: [
-            Expanded(child: Image.file(File(path), fit: BoxFit.cover)),
-            Text(Fruit.values[fruit].name),
+            Expanded(child: Image.file(File(record.path), fit: BoxFit.cover)),
+            Text(Fruit.values[record.fruit].name),
           ],
         ),
       );
