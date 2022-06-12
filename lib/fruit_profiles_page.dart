@@ -34,23 +34,9 @@ class FruitProfilesPage extends StatelessWidget {
         .map((MapEntry<Fruit, String> entry) {
       Fruit fruit = entry.key;
       final fruitImagePath = entry.value;
-      return TextButton(
+      return ElevatedButton(
         onPressed: () => pushStatisticsPage(context, fruit),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.blueGrey,
-            border: Border.all(width: 3.0, color: Colors.black),
-          ),
-          constraints: const BoxConstraints.expand(),
-          child: Image.asset(fruitImagePath, fit: BoxFit.contain),
-          padding: const EdgeInsets.all(8),
-          margin: const EdgeInsets.all(0),
-        ),
-        style: TextButton.styleFrom(
-          primary: Colors.white,
-          padding: const EdgeInsets.all(0),
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        ),
+        child: Image.asset(fruitImagePath, fit: BoxFit.contain),
       );
     }).toList();
   }

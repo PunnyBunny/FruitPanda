@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_panda/achievements_page.dart';
 import 'package:fruit_panda/fruit_histories_page.dart';
 import 'package:fruit_panda/fruit_profiles_page.dart';
 import 'package:fruit_panda/panda_page.dart';
@@ -23,12 +24,12 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
-            const PandaPage(),
-            const FruitProfilesPage(),
-            const FruitHistoriesPage(),
-            Container(color: Colors.red),
+            PandaPage(),
+            FruitProfilesPage(),
+            FruitHistoriesPage(),
+            AchievementPage(),
           ],
         ),
         bottomNavigationBar: Material(

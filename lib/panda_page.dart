@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fruit_panda/ai.dart';
 import 'package:fruit_panda/fruit_record.dart';
 import 'package:fruit_panda/record.dart';
+import 'package:fruit_panda/streak_manager.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,7 +22,7 @@ class PandaPage extends StatelessWidget {
       child: Column(
         children: [
           Image.asset(
-            'assets/images/panda.png',
+            'assets/images/panda2.png',
             height: 500,
             fit: BoxFit.contain,
           ),
@@ -36,9 +37,12 @@ class PandaPage extends StatelessWidget {
 
               if (photo == null) return;
 
+              // assuming fruit has been consumed
+              StreakManager.perform("eat");
+
               // save the picture
               final saveDir = await getApplicationDocumentsDirectory();
-              final path = saveDir.path + '/${DateTime.now()}.jpg';
+              final path = '${saveDir.path}/${DateTime.now()}.jpg';
               photo.saveTo(path);
 
               final fruit = inference(path);
@@ -87,8 +91,10 @@ class PandaPage extends StatelessWidget {
                           onPressed: () async {
                             // add record to shared preferences
                             final prefs = await SharedPreferences.getInstance();
-                            final json = prefs.getString("records") ?? '{"records":[]}';
-                            final records = FruitRecord.fromJson(jsonDecode(json));
+                            final json =
+                                prefs.getString("records") ?? '{"records":[]}';
+                            final records =
+                                FruitRecord.fromJson(jsonDecode(json));
 
                             final idx = Fruit.values.indexOf(fruit);
                             records.records.add(Record(path, idx));

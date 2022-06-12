@@ -16,7 +16,7 @@ class AssetsManager {
     for (String path in imagePaths) {
       final imageName =
           path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.'));
-      if (path.contains('fruits')) {
+      if (path.contains('orangeblack')) {
         fruitImagesPath[asFruit(imageName)] = path;
       } else {
         imagesPath[imageName] = path;
