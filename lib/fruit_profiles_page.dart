@@ -14,7 +14,6 @@ class FruitProfilesPage extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Container(
-            color: Colors.white,
             child: GridView.count(
               crossAxisCount: 2,
               crossAxisSpacing: 10,
@@ -34,9 +33,18 @@ class FruitProfilesPage extends StatelessWidget {
         .map((MapEntry<Fruit, String> entry) {
       Fruit fruit = entry.key;
       final fruitImagePath = entry.value;
-      return ElevatedButton(
+      return TextButton(
         onPressed: () => pushStatisticsPage(context, fruit),
-        child: Image.asset(fruitImagePath, fit: BoxFit.contain),
+        child: Stack(
+          children: [
+            Image.asset("assets/images/button.png"),
+            Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: Image.asset(fruitImagePath, fit: BoxFit.contain),
+            ),
+          ],
+          alignment: Alignment.center,
+        ),
       );
     }).toList();
   }

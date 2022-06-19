@@ -8,9 +8,8 @@ class StreakManager {
     final prefs = await SharedPreferences.getInstance();
     var longestStreak = prefs.getInt("${action}LongestStreak") ?? 0;
     var currentStreak = prefs.getInt("${action}CurrentStreak") ?? 0;
-    final actionLastDate = DateTime.parse(prefs
-            .getString("${action}LastDate") ??
-        DateTime.fromMicrosecondsSinceEpoch(0).toIso8601String()); // first day
+    final actionLastDate =
+        DateTime.parse(getLastDate(prefs, action)); // first day
     final now = DateTime.now();
 
     if (actionLastDate.day == now.day) return; // logged in today, do nothing
@@ -25,11 +24,15 @@ class StreakManager {
 
     prefs.setInt("${action}LongestStreak", longestStreak);
     prefs.setInt("${action}CurrentStreak", currentStreak);
-    prefs.setString("${action}LastLoginDate", now.toIso8601String());
+    prefs.setString("${action}LastDate", now.toIso8601String());
   }
 
-  static int getLongestStreak(
-      SharedPreferences prefs, String action) {
+  static int getLongestStreak(SharedPreferences prefs, String action) {
     return prefs.getInt("${action}LongestStreak") ?? 0;
+  }
+
+  static String getLastDate(SharedPreferences prefs, String action) {
+    return prefs.getString("${action}LastDate") ??
+        DateTime.fromMicrosecondsSinceEpoch(0).toIso8601String();
   }
 }

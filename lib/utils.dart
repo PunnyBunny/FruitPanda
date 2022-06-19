@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fruit_panda/constants.dart';
 
@@ -31,3 +32,26 @@ Fruit asFruit(String fruit) {
     orElse: () => Fruit.unknown,
   );
 }
+
+class WithBackground extends StatelessWidget {
+  final Widget? child;
+  const WithBackground({this.child, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/background.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        if (child != null) child!,
+      ],
+    );
+  }
+}
+

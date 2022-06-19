@@ -36,22 +36,24 @@ Future<Widget> _fruitStatisticsPage(BuildContext context, Fruit fruit,
     path.lastIndexOf('.', path.length - 5),
   );
 
-  return Scaffold(
-    appBar: AppBar(title: Text(fruit.properName)),
-    body: Padding(
-      padding: const EdgeInsets.all(20),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Image.asset(AssetsManager.fruitImagesPath[fruit]!),
+  return WithBackground(
+    child: Scaffold(
+      appBar: AppBar(title: Text(fruit.properName)),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Image.asset(AssetsManager.fruitImagesPath[fruit]!, height: 500),
 
-            // path : */*/date time.milliseconds.jpg
-            if (eatenTime != null) Text('Eaten at $eatenTime'),
+              // path : */*/date time.milliseconds.jpg
+              if (eatenTime != null) Text('Eaten at $eatenTime'),
 
-            ...(await getNutrition(fruit)).map((line) => Text(line)),
-          ],
+              ...(await getNutrition(fruit)).map((line) => Text(line)),
+            ],
+          ),
         ),
       ),
     ),
@@ -65,12 +67,10 @@ Future<List<String>> getNutrition(Fruit fruit) async {
   for (final entry in nutritionDict[fruit.properName]!.entries) {
     nutritionList.add(entry.key + ": " + entry.value.toStringAsFixed(2));
   }
-  // print(nutritionList);
   return nutritionList;
 }
 
 void pushStatisticsPage(BuildContext context, Fruit fruit, {String? path}) {
-  // print(path);
   Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => FruitStatisticsPage(fruit, path: path)));
 }

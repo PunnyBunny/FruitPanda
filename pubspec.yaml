@@ -41,6 +41,9 @@ dependencies:
   tflite: ^1.1.2
   logger: ^1.1.0
   json_serializable: ^6.2.0
+  google_fonts: ^3.0.1
+  font_awesome_flutter: ^10.1.0
+  share_extend: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +72,8 @@ flutter:
   assets:
     - assets/images/fruits/lester/orangeblack/
     - assets/images/fruits/
+    - assets/images/panda/
+    - assets/images/icons/
     - assets/images/
     - assets/nutrition.json
     - assets/models/

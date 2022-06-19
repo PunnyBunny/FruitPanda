@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fruit_panda/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,12 +16,28 @@ class AchievementPage extends StatelessWidget {
         return ListView.builder(
           itemBuilder: (context, index) {
             final completed = achievements[index].predicate(prefs);
-            return  Padding(
+            return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Card(
-                elevation: 5,
-                child: ListTile(title: Text(achievements[index].name)),
-                color: completed ? Colors.amber : Colors.white,
+              child: Stack(
+                children: [
+                  Image.asset(
+                    "assets/images/button2_long" +
+                        (completed ? ".png" : "_dark.png"),
+                    height: 80,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                      title: Text(achievements[index].name),
+                      leading: Icon(
+                        completed
+                            ? FontAwesomeIcons.check
+                            : FontAwesomeIcons.xmark,
+                      ),
+                    ),
+                  ),
+                ],
+                alignment: Alignment.center,
               ),
             );
           },

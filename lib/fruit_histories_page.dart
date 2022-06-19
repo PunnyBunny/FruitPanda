@@ -7,7 +7,7 @@ import 'package:fruit_panda/record.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'fruit_record.dart';
-import 'fruit_stats_page.dart';
+import 'fruit_share_page.dart';
 
 class FruitHistoriesPage extends StatelessWidget {
   const FruitHistoriesPage({Key? key}) : super(key: key);
@@ -29,9 +29,8 @@ class FruitHistoriesPage extends StatelessWidget {
           }
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: GridView.extent(
-              maxCrossAxisExtent: 200,
-              crossAxisSpacing: 8,
+            child: GridView.count(
+              crossAxisCount: 2,
               mainAxisSpacing: 8,
               children: records,
             ),
@@ -49,17 +48,49 @@ class FruitHistoriesPage extends StatelessWidget {
     return records.records.map((Record record) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ElevatedButton(
-          onPressed: () => pushStatisticsPage(
-            context,
-            Fruit.values[record.fruit],
-            path: record.path,
-          ),
-          child: Column(
+        child: TextButton(
+          child: Stack(
             children: [
-              Expanded(child: Image.file(File(record.path), fit: BoxFit.cover)),
-              Text(Fruit.values[record.fruit].name),
+              Image.asset("assets/images/button.png"),
+              Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(offset: Offset(2, 2), blurRadius: 3),
+                          ],
+                        ),
+                        child: Image.file(
+                          File(record.path),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Text(
+                        Fruit.values[record.fruit].properName,
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
+            alignment: Alignment.center,
+          ),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => FruitSharePage(
+                record.path,
+                Fruit.values[record.fruit],
+              ),
+            ),
           ),
         ),
       );
